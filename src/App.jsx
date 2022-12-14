@@ -1,11 +1,16 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function App() {
   return (
-    <div>
+    <StyledContainer>
       app
-    </div>
+    </StyledContainer>
   );
 }
+
+const StyledContainer = styled.div`
+  background-color: yellow;
+`;
 
 export default App;
