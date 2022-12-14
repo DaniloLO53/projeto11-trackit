@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import Context from '../context/Context';
 
 function Login() {
+  const { contextLoginObj } = useContext(Context);
+  const {
+    disabled, email, password, setPassword, setEmail,
+  } = contextLoginObj;
+
   return (
     <StyledLogin>
       <figure>
@@ -10,14 +16,27 @@ function Login() {
 
       <form>
         <label htmlFor="email">
-          <input type="text" id="email" placeholder="Email" />
+          <input
+            type="text"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={({ target }) => setEmail(target.value)}
+          />
         </label>
         <label htmlFor="password">
-          <input type="text" id="password" placeholder="Password" />
+          <input
+            type="text"
+            id="password"
+            placeholder="Password"
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+          />
         </label>
 
         <button
           type="button"
+          disabled={disabled}
         >
           Entrar
         </button>

@@ -4,11 +4,9 @@ import Context from './Context';
 import ContextLogin from './ContextLogin';
 
 function ContextProvider({ children }) {
-  const { contextLoginObj } = ContextLogin();
+  const contextLoginObj = ContextLogin();
 
-  const context = useMemo({
-    ...contextLoginObj,
-  });
+  const context = useMemo(() => ({ contextLoginObj }), [contextLoginObj]);
 
   return (
     <Context.Provider value={context}>
@@ -20,3 +18,5 @@ function ContextProvider({ children }) {
 ContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
+
+export default ContextProvider;

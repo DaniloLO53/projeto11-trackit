@@ -22,7 +22,7 @@ const ContextLogin = () => {
     disabled,
   };
 
-  return { contextLoginObject };
+  return contextLoginObject;
 };
 
 export default ContextLogin;
