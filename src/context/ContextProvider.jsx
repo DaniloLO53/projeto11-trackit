@@ -11,7 +11,7 @@ function ContextProvider({ children }) {
     loading,
     setLoading,
     ...data,
-  }), [loading, setLoading]);
+  }), [loading, setLoading, data]);
 
   console.log(context);
 

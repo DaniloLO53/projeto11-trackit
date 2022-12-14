@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import axios from 'axios';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
@@ -20,6 +21,37 @@ function Cadastro() {
   } = useContext(Context);
 
   // const navigate = useNavigate();
+
+  const handleClick = () => {
+    const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
+    const payload = {
+      email,
+      name,
+      image: photo,
+      password,
+    };
+    const controller = new AbortController();
+    // const { signal } = controller;
+
+    setLoading(true);
+
+    const fetcher = async () => {
+      try {
+        const dataFetched = await axios.post(URL, payload);
+        console.log(dataFetched);
+        setLoading(false);
+        // navigate('/hoje');
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    };
+    fetcher();
+
+    return () => {
+      console.log('Cleaning');
+      controller.abort();
+    };
+  };
 
   return (
     <StyledLogin>
@@ -67,8 +99,8 @@ function Cadastro() {
 
         <button
           type="button"
-        // disabled={disabled}
-        // onClick={() => handleClick()}
+          // disabled={disabled}
+          onClick={() => handleClick()}
         >
           Cadastrar
         </button>
