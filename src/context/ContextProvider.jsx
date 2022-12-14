@@ -1,12 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
-import ContextLogin from './ContextLogin';
+import ContextSignup from './ContextSignup';
 
 function ContextProvider({ children }) {
-  const contextLoginObj = ContextLogin();
+  const [loading, setLoading] = useState(false);
+  const data = ContextSignup();
 
-  const context = useMemo(() => ({ contextLoginObj }), [contextLoginObj]);
+  const context = useMemo(() => ({
+    loading,
+    setLoading,
+    ...data,
+  }), [loading, setLoading]);
+
+  console.log(context);
 
   return (
     <Context.Provider value={context}>

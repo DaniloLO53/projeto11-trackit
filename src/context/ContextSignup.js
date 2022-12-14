@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 
-const ContextLogin = () => {
+function ContextSignup() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [photo, setPhoto] = useState('');
   const [disabled, setDisabled] = useState(true);
 
   const MIN_LENGTH_PASSWORD = 1;
@@ -14,15 +16,19 @@ const ContextLogin = () => {
     setDisabled(!(emailCheck && passwordCheck));
   }, [password, email]);
 
-  const contextLoginObject = {
+  const contextSignupObject = {
     setEmail,
     email,
     setPassword,
     password,
+    name,
+    setName,
+    photo,
+    setPhoto,
     disabled,
   };
 
-  return contextLoginObject;
-};
+  return contextSignupObject;
+}
 
-export default ContextLogin;
+export default ContextSignup;

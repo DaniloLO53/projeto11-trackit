@@ -2,7 +2,9 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import ContextProvider from './context/ContextProvider';
-import Login from './pages/Login';
+import Cadastro from './pages/Cadastro';
+import Hoje from './pages/Hoje';
+import { Login } from './pages/Login';
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
       <ContextProvider>
         <Routes>
           <Route element={<Login />} path="/" />
+          <Route element={<Hoje />} path="/hoje" />
+          <Route element={<Cadastro />} path="/cadastro" />
         </Routes>
       </ContextProvider>
     </StyledContainer>

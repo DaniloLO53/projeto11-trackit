@@ -1,12 +1,46 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../context/Context';
 
 function Login() {
-  const { contextLoginObj } = useContext(Context);
-  const {
-    disabled, email, password, setPassword, setEmail,
-  } = contextLoginObj;
+  const { loading, setLoading } = useContext(Context);
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+    const payload = {
+      email,
+      password,
+    };
+    const controller = new AbortController();
+    // const { signal } = controller;
+
+    setLoading(true);
+
+    const fetcher = async () => {
+      try {
+        const dataFetched = await axios.post(URL, payload);
+        console.log(dataFetched);
+        setLoading(false);
+        navigate('/hoje');
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    };
+    fetcher();
+
+    return () => {
+      console.log('Cleaning');
+      controller.abort();
+    };
+  };
+
+  console.log(loading);
 
   return (
     <StyledLogin>
@@ -36,13 +70,14 @@ function Login() {
 
         <button
           type="button"
-          disabled={disabled}
+          onClick={() => handleClick()}
         >
           Entrar
         </button>
 
         <button
           type="button"
+          onClick={() => navigate('/cadastro')}
         >
           Não tem uma conta? Cadastre-se!
         </button>
@@ -102,4 +137,4 @@ const StyledLogin = styled.div`
   }
 `;
 
-export default Login;
+export { Login, StyledLogin };
