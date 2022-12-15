@@ -11,6 +11,8 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const { setSignupData } = useContext(Context);
+
   const handleClick = () => {
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
     const payload = {
@@ -25,7 +27,7 @@ function Login() {
     const fetcher = async () => {
       try {
         const dataFetched = await axios.post(URL, payload);
-        console.log(dataFetched);
+        setSignupData(dataFetched);
         setLoading(false);
         navigate('/hoje');
       } catch (error) {

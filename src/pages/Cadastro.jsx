@@ -21,7 +21,7 @@ function Cadastro() {
     disabled,
   } = useContext(Context);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
@@ -41,9 +41,10 @@ function Cadastro() {
         const dataFetched = await axios.post(URL, payload);
         console.log(dataFetched);
         setLoading(false);
-        // navigate('/hoje');
+        navigate('/');
       } catch (error) {
         setLoading(false);
+        alert(error.message);
         throw new Error(error.message);
       }
     };
@@ -113,7 +114,7 @@ function Cadastro() {
 
         <button
           type="button"
-        // onClick={() => navigate('/cadastro')}
+          onClick={() => navigate('/')}
         >
           Já tem uma conta? Faça login!
         </button>

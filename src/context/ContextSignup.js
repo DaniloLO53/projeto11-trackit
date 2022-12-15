@@ -6,6 +6,7 @@ function ContextSignup() {
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const [signupData, setSignupData] = useState({});
 
   const MIN_LENGTH_PASSWORD = 1;
 
@@ -26,6 +27,8 @@ function ContextSignup() {
     photo,
     setPhoto,
     disabled,
+    signupData,
+    setSignupData,
   };
 
   return contextSignupObject;
