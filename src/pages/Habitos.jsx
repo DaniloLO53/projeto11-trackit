@@ -13,6 +13,7 @@ function Habitos() {
   const [form, setForm] = useState(false);
   const [weekdays, setWeekdays] = useState([]);
   const [habitName, setHabitName] = useState('');
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
@@ -39,7 +40,7 @@ function Habitos() {
       console.log('Cleaning');
       controller.abort();
     };
-  }, []);
+  }, [reload]);
 
   // console.log(weekdays.includes('0'), weekdays);
 
@@ -67,6 +68,23 @@ function Habitos() {
     }
 
     setForm(false);
+  };
+
+  const deleteHabit = async (id) => {
+    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      await axios.delete(URL, config);
+      setReload(!reload);
+    } catch (error) {
+      console.log(error.message);
+      throw new Error(error.message);
+    }
   };
   return (
     <StyledHabitos>
@@ -143,7 +161,7 @@ function Habitos() {
               Adicione um hábito para começar a trackear!
             </p>
           )}
-        {habits?.data?.map(({ name, days }) => (
+        {habits?.data?.map(({ name, days, id }) => (
           <div>
             <div name="habitsInfo">
               <p>{name}</p>
@@ -169,7 +187,12 @@ function Habitos() {
               </div>
             </div>
             <div name="trash">
-              <img alt="trash" src="./Vector.png" />
+              <button
+                type="button"
+                onClick={() => deleteHabit(id)}
+              >
+                <img alt="trash" src="./Vector.png" />
+              </button>
             </div>
           </div>
         ))}
