@@ -2,6 +2,7 @@
 import axios from 'axios';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 import Context from '../context/Context';
 import { StyledLogin } from './Login';
 
@@ -42,6 +43,7 @@ function Cadastro() {
         setLoading(false);
         // navigate('/hoje');
       } catch (error) {
+        setLoading(false);
         throw new Error(error.message);
       }
     };
@@ -64,6 +66,7 @@ function Cadastro() {
           <input
             type="text"
             id="email"
+            disabled={loading}
             placeholder="Email"
             value={email}
             onChange={({ target }) => setEmail(target.value)}
@@ -73,6 +76,7 @@ function Cadastro() {
           <input
             type="text"
             id="password"
+            disabled={loading}
             placeholder="Password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
@@ -84,12 +88,14 @@ function Cadastro() {
             id="name"
             placeholder="Nome"
             value={name}
+            disabled={loading}
             onChange={({ target }) => setName(target.value)}
           />
         </label>
         <label htmlFor="photo">
           <input
             type="text"
+            disabled={loading}
             id="photo"
             placeholder="Foto"
             value={photo}
@@ -102,7 +108,7 @@ function Cadastro() {
           // disabled={disabled}
           onClick={() => handleClick()}
         >
-          Cadastrar
+          {loading ? <Loading /> : 'Cadastrar'}
         </button>
 
         <button

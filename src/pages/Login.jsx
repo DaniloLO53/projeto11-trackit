@@ -125,6 +125,9 @@ const StyledLogin = styled.div`
       margin-top: 5px;
       border: none;
       border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     button:nth-of-type(2) {
