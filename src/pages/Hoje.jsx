@@ -1,12 +1,14 @@
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
+import Menu from '../components/Menu';
 import Context from '../context/Context';
 
 function Hoje() {
   const { signupData } = useContext(Context);
   const { data } = signupData;
   const { token } = data;
+  const [habits, setHabits] = useState([]);
 
   useEffect(() => {
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today';
@@ -20,8 +22,8 @@ function Hoje() {
 
     const fetcher = async () => {
       try {
-        const habits = await axios.get(URL, config, { signal });
-        console.log(habits);
+        const habitsFetched = await axios.get(URL, config, { signal });
+        setHabits(habitsFetched);
       } catch (error) {
         console.log(error.message);
         throw new Error(error.message);
@@ -38,6 +40,7 @@ function Hoje() {
   return (
     <div>
       <Header />
+      <Menu habits={habits.data || []} />
     </div>
   );
 }
