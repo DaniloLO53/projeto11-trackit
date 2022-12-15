@@ -6,7 +6,7 @@ function Header() {
   const { signupData } = useContext(Context);
   const { data } = signupData;
   const { image } = data;
-  console.log(signupData);
+  // console.log(signupData);
   return (
     <StyledHeader>
       <img alt="logo" src="./TrackIt.png" />

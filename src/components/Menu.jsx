@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,7 +7,7 @@ import PropTypes from 'prop-types';
 
 function Menu({ habits }) {
   const navigate = useNavigate();
-  console.log(habits);
+  // console.log(habits);
 
   return (
     <StyledMenu>

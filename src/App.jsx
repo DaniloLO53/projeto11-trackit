@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import ContextProvider from './context/ContextProvider';
 import Cadastro from './pages/Cadastro';
+import Habitos from './pages/Habitos';
 import Hoje from './pages/Hoje';
 import { Login } from './pages/Login';
 
@@ -14,6 +15,7 @@ function App() {
           <Route element={<Login />} path="/" />
           <Route element={<Hoje />} path="/hoje" />
           <Route element={<Cadastro />} path="/cadastro" />
+          <Route element={<Habitos />} path="/habitos" />
         </Routes>
       </ContextProvider>
     </StyledContainer>
