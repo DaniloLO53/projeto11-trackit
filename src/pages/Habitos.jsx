@@ -14,8 +14,6 @@ function Habitos() {
   const [weekdays, setWeekdays] = useState([]);
   const [habitName, setHabitName] = useState('');
 
-  console.log(weekdays);
-
   useEffect(() => {
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
     const config = {
@@ -43,7 +41,7 @@ function Habitos() {
     };
   }, []);
 
-  console.log(weekdays.includes('0'), weekdays);
+  // console.log(weekdays.includes('0'), weekdays);
 
   useEffect(() => console.log(habits), [habits]);
 
@@ -67,6 +65,8 @@ function Habitos() {
       console.log(error.message);
       throw new Error(error.message);
     }
+
+    setForm(false);
   };
   return (
     <StyledHabitos>
@@ -107,7 +107,6 @@ function Habitos() {
                   className="weekday"
                   name={index}
                   color={weekdays.includes(String(index))}
-                  x="green"
                   onClick={({ target }) => {
                     setWeekdays((prevState) => {
                       if (prevState.includes(target.name)) {
@@ -144,6 +143,36 @@ function Habitos() {
               Adicione um hábito para começar a trackear!
             </p>
           )}
+        {habits?.data?.map(({ name, days }) => (
+          <div>
+            <div name="habitsInfo">
+              <p>{name}</p>
+              <div>
+                {[
+                  'Domingo',
+                  'Segunda',
+                  'Terca',
+                  'Quarta',
+                  'Quinta',
+                  'Sexta',
+                  'Sabado',
+                ].map((day, index) => (
+                  <WeekdayButton
+                    type="button"
+                    className="weekday"
+                    name={index}
+                    color={days.includes(index)}
+                  >
+                    {day[0]}
+                  </WeekdayButton>
+                ))}
+              </div>
+            </div>
+            <div name="trash">
+              <img alt="trash" src="./Vector.png" />
+            </div>
+          </div>
+        ))}
       </Body>
       <Menu habits={habits.data || []} />
     </StyledHabitos>
@@ -160,6 +189,23 @@ const Body = styled.div`
   top: 70px;
   height: calc(100vh - 190px);
   padding: 20px;
+
+  div[name=habitsInfo] {
+      /* background-color: green; */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  div[name=trash] {
+    /* background-color: blue; */
+    display: flex;
+    justify-content: flex-end;
+
+    img {
+      width: 25px;
+    }
+  }
 
 
   div {

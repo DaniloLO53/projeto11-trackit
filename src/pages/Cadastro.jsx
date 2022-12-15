@@ -39,7 +39,7 @@ function Cadastro() {
     const fetcher = async () => {
       try {
         const dataFetched = await axios.post(URL, payload);
-        console.log(dataFetched);
+        // console.log(dataFetched);
         setLoading(false);
         navigate('/');
       } catch (error) {
