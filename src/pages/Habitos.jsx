@@ -14,6 +14,7 @@ function Habitos() {
   const [weekdays, setWeekdays] = useState([]);
   const [habitName, setHabitName] = useState('');
   const [reload, setReload] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
@@ -57,10 +58,14 @@ function Habitos() {
       name: habitName,
       days: weekdays,
     };
+    setLoading(true);
 
-    console.log(payload);
     try {
       const habitsFetched = await axios.post(URL, { ...payload }, config);
+      setLoading(false);
+      setReload(!reload);
+      setHabitName('');
+      setWeekdays([]);
       console.log(habitsFetched);
     } catch (error) {
       console.log(error.message);
@@ -105,6 +110,7 @@ function Habitos() {
               <input
                 id="name"
                 type="text"
+                disabled={loading}
                 placeholder="Nome do hábito"
                 value={habitName}
                 onChange={({ target }) => setHabitName(target.value)}
@@ -122,6 +128,7 @@ function Habitos() {
               ].map((day, index) => (
                 <WeekdayButton
                   type="button"
+                  disabled={loading}
                   className="weekday"
                   name={index}
                   color={weekdays.includes(String(index))}
@@ -148,6 +155,7 @@ function Habitos() {
               <button
                 type="button"
                 onClick={addHabit}
+                disabled={loading}
               >
                 Salvar
               </button>

@@ -2,12 +2,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import PropTypes from 'prop-types';
 
-function Menu({ habits }) {
+function Menu({ effectivePercentage }) {
   const navigate = useNavigate();
-  // console.log(habits);
+  console.log(effectivePercentage);
 
   return (
     <StyledMenu>
@@ -17,36 +17,22 @@ function Menu({ habits }) {
       >
         Hábitos
       </button>
-      <button
+      <ProgressButton
         type="button"
         onClick={() => navigate('/hoje')}
       >
         <CircularProgressbar
-          className="progressbar"
-          // value={completedHabits}
+          value={effectivePercentage}
           text="Hoje"
-          background
-          backgroundPadding={6}
-          styles={{
-            path: {
-              stroke: '#fff',
-              strokeLinecap: 'round',
-            },
-            trail: {
-              stroke: '#52b6ff',
-              strokeLinecap: 'round',
-            },
-            text: {
-              fill: '#fff',
-              fontSize: '18px',
-              fontFamily: 'Lexend Deca',
-            },
-            background: {
-              fill: '#52b6ff',
-            },
-          }}
+          strokeWidth={10}
+          styles={buildStyles({
+            textColor: 'white',
+            pathColor: 'white',
+            trailColor: '#52b6ff',
+            strokeLinecap: 'round',
+          })}
         />
-      </button>
+      </ProgressButton>
       <button
         type="button"
         onClick={() => navigate('/historico')}
@@ -58,7 +44,7 @@ function Menu({ habits }) {
 }
 
 const StyledMenu = styled.div`
-  background-color: purple;
+  /* background-color: purple; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,19 +55,25 @@ const StyledMenu = styled.div`
   padding: 40px;
 
   button {
-    background-color: transparent;
+    /* background-color: transparent; */
     border: none;
   }
 `;
 
+const ProgressButton = styled.button`
+  background-color: #52b6ff;
+  border-radius: 50%;
+  width: 25%;
+  padding: 8px;
+
+  svg text {
+      transform: translate(-19%, 5%);
+      font-size: 20px;
+    }
+`;
+
 Menu.propTypes = {
-  habits: PropTypes.arrayOf(PropTypes.shape(
-    PropTypes.string.isRequired,
-    PropTypes.string.isRequired,
-    PropTypes.bool.isRequired,
-    PropTypes.string.isRequired,
-    PropTypes.string.isRequired,
-  )).isRequired,
+  effectivePercentage: PropTypes.number.isRequired,
 };
 
 export default Menu;
